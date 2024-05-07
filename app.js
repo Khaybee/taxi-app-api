@@ -4,10 +4,10 @@ const cors = require('cors')
 const config = require('dotenv');
 const bodyParser = require('body-parser');
 const { connectDB } = require('./utils/database');
-// const errorHandler = require('./middlewares/errorHandler');
+const errorHandler = require('./utils/errorHandler');
 
 // impport routes
-// const auth = require('./routes/auth.routes')
+const auth = require('./routes/auth/index')
 // const admin = require('./routes/admin.routes')
 // const product =require('./routes/product.routes')
 // const orders =require('./routes/orders.routes')
@@ -25,14 +25,11 @@ app.use(cors())   //should be the first middleware
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-// app.use('/api/auth', auth)
-// app.use('/api/admin', admin)
-// app.use('/api/product', product)
-// app.use('/api/orders', orders)
+app.use('/api/auth', auth)
 // app.use('/api/user', users)
 
 
-// app.use(errorHandler)   //should be the last middleware
+app.use(errorHandler)   //should be the last middleware
 
 
 const port = process.env.PORT || 5021;
